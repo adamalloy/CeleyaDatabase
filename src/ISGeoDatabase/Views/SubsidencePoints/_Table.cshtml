@@ -1,0 +1,142 @@
+﻿@model ISGeoDatabase.Models.SubTable
+
+<table class="table" id="Sub-table" >
+    <thead>
+        <tr>
+
+            <th>
+                @Html.ActionLink("Country", "Index", new { sortOrder = ViewBag.CountrySortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Region", "Index", new { sortOrder = ViewBag.RegionSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.CitySortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Team Number", "Index", new { sortOrder = ViewBag.TeamSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Station Number", "Index", new { sortOrder = ViewBag.StationSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Coordinates", "Index", new { sortOrder = ViewBag.CoordinatesSortParm })
+            </th>
+            <th>
+                @Html.DisplayName("Prepended Text")
+            </th>
+            <th>
+                @Html.DisplayName("Station Reference")
+            </th>
+            <th>
+                @Html.ActionLink("Fault", "Index", new { sortOrder = ViewBag.FaultSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Data Type", "Index", new { sortOrder = ViewBag.TypeSortParm })
+
+            </th>
+            <th>
+                @Html.ActionLink("Strike", "Index", new { sortOrder = ViewBag.StrikeSortParm })
+            </th>
+
+            <th>
+                @Html.ActionLink("Throw", "Index", new { sortOrder = ViewBag.ThrowSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Slip", "Index", new { sortOrder = ViewBag.SlipSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Angle", "Index", new { sortOrder = ViewBag.AngleSortParm })
+            </th>
+            <th>
+                @Html.DisplayName("Notes")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Table)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StationNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coordinates)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrependedText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StationRef)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fault)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Strike)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Throw)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Angle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+               
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div id="nav-buttons" class="row">
+    @if ((Model.Page - 2) > 1)
+    {
+        <button id="page-button-first" data-page="1" class="btn btn-primary page-button">First</button>
+    }
+
+
+    @for (var x = (((Model.Page - 2) >= 1) ? (Model.Page - 2) : 1); x <= ((Model.Page + 2 < Model.NumPages) ? (Model.Page + 2) : Model.NumPages); x++)
+    {
+        <button id="page-button-@x" data-page="@x" class="btn btn-primary page-button">@x</button>
+        
+    }
+    @if ((@Model.Page + 2) < @Model.NumPages)
+    {
+        <button id="page-button-last" data-page="@Model.NumPages" class="btn btn-primary page-button">Last</button>
+    }
+</div>
+
+

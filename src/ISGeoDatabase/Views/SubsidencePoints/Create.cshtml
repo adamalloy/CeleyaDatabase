@@ -1,0 +1,157 @@
+@model ISGeoDatabase.Models.SubsidencePoint
+
+@{
+    ViewData["Title"] = "Create";
+    var countries = Model.Countries.Select(x => new SelectListItem { Text = x, Value = x, Selected = Model.Country == x }).ToList();
+    var regions = Model.Regions.Select(x => new SelectListItem { Text = x, Value = x, Selected = Model.Region == x }).ToList();
+    var datatypes = Model.DataTypes.Select(x => new SelectListItem { Text = x, Value = x, Selected = Model.DataType == x }).ToList();
+    var cities = Model.Cities.Select(x => new SelectListItem { Text = x, Value = x, Selected = Model.City == x }).ToList();
+    }
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    <h4>Subsidence Fault Point</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.HiddenFor(x => x.ID)
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Country)
+                    @Html.DropDownListFor(x => x.Country, countries, "- Select -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Country)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Region)
+                    @Html.DropDownListFor(x => x.Region, regions, "- Select -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Region)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.City)
+                    @Html.DropDownListFor(x => x.City, cities, "- Select -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.City)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.TeamNumber)
+                    @Html.TextBoxFor(x => x.TeamNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.TeamNumber)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.StationNumber)
+                    @Html.TextBoxFor(x => x.StationNumber, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.StationNumber)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.DateAndTime)
+                    @Html.TextBoxFor(x => x.DateAndTime, new { @class = "form-control date" })
+                    @Html.ValidationMessageFor(x => x.DateAndTime)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Coordinates)
+                    @Html.TextBoxFor(x => x.Coordinates, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Coordinates)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.PrependedText)
+                    @Html.TextBoxFor(x => x.PrependedText, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PrependedText)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.StationRef)
+                    @Html.TextBoxFor(x => x.StationRef, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.StationRef)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Fault)
+                    @Html.TextBoxFor(x => x.Fault, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Fault)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.DataType)
+                    @Html.DropDownListFor(x => x.DataType, datatypes, "- Select -", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.DataType)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Strike)
+                    @Html.TextBoxFor(x => x.Strike, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Strike)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Angle)
+                    @Html.TextBoxFor(x => x.Angle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Angle)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Throw)
+                    @Html.TextBoxFor(x => x.Throw, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Throw)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Slip)
+                    @Html.TextBoxFor(x => x.Slip, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Slip)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.Notes)
+                    @Html.TextAreaFor(x => x.Notes, new { @class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Notes)
+                </div>
+            </div>
+         </div>
+        <input type="submit" value="Submit">
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script> 
+        $(document).ready(function () {
+            $('.date').datepicker();
+        });
+    </script>
+}

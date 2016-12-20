@@ -1,0 +1,180 @@
+@model ISGeoDatabase.Models.SubTable
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"> </script>
+    <script>
+        $(document).ready(function () {
+            $("#toggle").click(function () {
+                $("form").toggle();
+            });
+            $('.date').datepicker();
+        });
+    </script>
+    <script src="my_jquery_functions.js"></script>
+</head> 
+
+
+<h2>Index</h2>
+<div>
+    <h4>
+        <a asp-action="Create">Create New</a>
+    </h4>
+</div>
+
+
+@using (Html.BeginForm("Index", "SubsidencePoints", FormMethod.Post, new { style = "display: none;", id = "isgeo" }))
+            {
+   <div class="row">
+        <div class= "col-md-4">
+            <div class="form-group">
+                @Html.Label("Country:")
+                @Html.TextBox("country", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Region:")
+                @Html.TextBox("region", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("City:")
+                @Html.TextBox("city", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+   <div class="row">
+        <div class= "col-md-4">
+            <div class="form-group">
+                @Html.Label("Team Number:")
+                @Html.TextBox("teamno", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Fault:")
+                @Html.TextBox("fault", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.Label("Data Type")
+                @Html.TextBox("type", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+   <div class="row">
+        <div class= "col-md-6">
+            <div class="form-group">
+                @Html.Label("Start Date:")
+                @Html.TextBox("startdate", "", new { @class = "form-control date" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                @Html.Label("End Date:")
+                @Html.TextBox("enddate", "", new { @class = "form-control date" })
+            </div>
+        </div>
+   </div>
+   <div class="row">
+        <div class= "col-md-6">
+            <div class="form-group">
+                @Html.Label("Strike Lower Bound:")
+                @Html.TextBox("strikelow", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Strike Upper Bound:")
+                @Html.TextBox("strikehigh", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+   <div class="row">
+        <div class= "col-md-6">
+            <div class="form-group">
+                @Html.Label("Throw Lower Bound:")
+                @Html.TextBox("thwlow", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Throw Upper Bound:")
+                @Html.TextBox("thwhigh", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+      <div class="row">
+        <div class= "col-md-6">
+            <div class="form-group">
+                @Html.Label("Slip Lower Bound:")
+                @Html.TextBox("sliplow", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Slip Upper Bound:")
+                @Html.TextBox("sliphigh", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+      <div class="row">
+        <div class= "col-md-6">
+            <div class="form-group">
+                @Html.Label("Angle Lower Bound:")
+                @Html.TextBox("anglelow", "", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Angle Upper Bound:")
+                @Html.TextBox("anglehigh", "", new { @class = "form-control" })
+            </div>
+        </div>
+   </div>
+    <input type="submit" value="Submit">
+}
+    <p> <br> <br /> </p>
+
+    <button id="toggle">Hide/Display Search Filters</button>
+
+<div id="render">
+@Html.Partial("_Table", Model)
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+
+            function myFunc() {
+                $('.page-button').click(function(){
+                    var data = $("#isgeo").serializeArray();
+                    data.push({ name: "page", value: $(this).data('page') });
+                    data.push({ name: "sortOrder", value: '@Model.Filter.sortOrder'});
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetTable", "SubsidencePoints")',
+                        data: $.param(data),
+                        processData: false,
+                        contentType: false
+                    }).done(function (result){
+                        $('#render').html(result);
+                        myFunc();
+                    });
+                });
+            }
+
+            $(document).ready(function (){
+                myFunc();    
+            });
+
+
+        </script>
+ }
